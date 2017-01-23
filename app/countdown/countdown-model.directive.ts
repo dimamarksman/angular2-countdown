@@ -1,5 +1,4 @@
-import { Directive, OnInit, OnDestroy, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { Observer } from 'rxjs/Observer';
+import { Directive, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TimeRange } from './time-range';
@@ -9,8 +8,7 @@ import { CountdownService } from './countdown.service';
 @Directive({
   selector: '[countdownModel]'
 })
-export class CountdownModelDirective implements OnInit, OnDestroy {
-  private _countdownModel: string;
+export class CountdownModelDirective implements OnDestroy {
   private timeRange: number;
   private timerSubscription: Subscription;
   private id: string;
@@ -21,7 +19,7 @@ export class CountdownModelDirective implements OnInit, OnDestroy {
     if (countdownModelValue) {
       let value = this.countdownService.convertDateRangeStringToMs(countdownModelValue);
 
-      if (typeof value != 'number' || isNaN(value)) {
+      if (typeof value !== 'number' || isNaN(value)) {
         console.error('countdownTimer directive: parsing error.');
         return;
       }
@@ -38,6 +36,8 @@ export class CountdownModelDirective implements OnInit, OnDestroy {
 
   @Output() onChanageCountdownId = new EventEmitter<string>();
 
+  @Output('countdownOnRender') onRender = new EventEmitter<{ timeRange: TimeRange, time: number }>();
+
   @Output('countdownOnElapse') onElapse = new EventEmitter<void>();
 
   constructor(private countdownService: CountdownService) {
@@ -51,20 +51,9 @@ export class CountdownModelDirective implements OnInit, OnDestroy {
     this.countdownService.registerCountdownModel(this.id, this);
   }
 
-  ngOnInit(): void {
-    //
-  }
-
   ngOnDestroy(): void {
     this.countdownService.unregisterCountdownModel(this.id);
     this.stopCounter();
-  }
-
-  render(timeRangeObj: TimeRange, timeRange: number): void {
-    // Called when the view needs to be updated. 
-    // It is expected that the user of the countdown-model
-    // directive will implement this method.
-    console.log(timeRangeObj);
   }
 
   getCurrentTimeRange() {
@@ -92,8 +81,11 @@ export class CountdownModelDirective implements OnInit, OnDestroy {
     }
   }
 
-  preRender(timeRange: number): void {
-    this.timeRangeObj = this.countdownService.getTimeRangeAsObject(timeRange);
-    this.render(this.timeRangeObj, timeRange);
+  preRender(time: number): void {
+    this.timeRangeObj = this.countdownService.getTimeRangeAsObject(time);
+    this.onRender.emit({
+      timeRange: this.timeRangeObj,
+      time: time
+    });
   }
 }

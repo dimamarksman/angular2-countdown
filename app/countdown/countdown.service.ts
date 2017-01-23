@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
@@ -17,24 +17,30 @@ import { CountdownEvent } from './countdown-event';
 
 @Injectable()
 export class CountdownService {
-  private timerInterval = 1000;
+  private timerInterval = 1001;
   private lastDate: number;
   private countdownModelMap = new Map();
 
   timer: Observable<CountdownEvent>;
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.timer = Observable
       .create((observer: Observer<null>) => {
         try {
-          this.lastDate = Date.now();
+          let id: any;
 
-          var id = setInterval(() => {
-            observer.next(null);
-          }, this.timerInterval);
+          zone.runOutsideAngular(() => {
+            this.lastDate = Date.now();
+
+            id = setInterval(() => {
+              observer.next(null);
+            }, this.timerInterval);
+          });
 
           return function () {
-            if (id) clearTimeout(id);
+            if (id) {
+              clearTimeout(id);
+            }
           };
         } catch (err) {
           observer.error(err); // delivers an error if it caught one
@@ -47,14 +53,14 @@ export class CountdownService {
         return {
           elapse: elapse,
           now: now
-        }
+        };
       })
       .multicast(new Subject())
       .refCount()
       .catch((error: any) => {
         console.error(error);
         return Observable.empty();
-      })
+      });
   }
 
   convertDateRangeStringToMs(value: string): number {
@@ -112,7 +118,7 @@ export class CountdownService {
   }
 
   convertDateRangeStringToTimeRangeObj(dateRangeStr: string): TimeRange {
-    var timeMs = this.convertDateRangeStringToMs(dateRangeStr);
+    let timeMs = this.convertDateRangeStringToMs(dateRangeStr);
     return this.getTimeRangeAsObject(timeMs);
   }
 
