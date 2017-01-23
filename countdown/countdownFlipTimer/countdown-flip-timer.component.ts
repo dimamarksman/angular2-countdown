@@ -30,7 +30,7 @@ export class CountdownFlipTimerComponent implements OnInit, Render {
   }
 
   render(data: OnRenderEvent): void {
-    let range = data.timeRange;
+    let range = this.lastTimeRange = data.timeRange;
 
     if (!range) {
       return;

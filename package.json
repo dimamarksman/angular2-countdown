@@ -4,7 +4,7 @@
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
     "prestart": "npm i",
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server -c bs-config.js\" ",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
     "pree2e": "webdriver-manager update",
