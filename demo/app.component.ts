@@ -7,16 +7,16 @@ import { Component } from '@angular/core';
     <h1>Angular 2 Countdown Timer Example</h1>
     <hr/>
     <h2>Simple Countdown Timer</h2>
-    <countdown-timer #timer
+    <countdown-timer #countdownTimer
       [countdownModel]="countdownTimeStr" 
       (countdownOnElapse)="onElapse($event)"
-      (countdownOnRender)="timer.render($event)"></countdown-timer>
+      (countdownOnRender)="countdownTimer.render($event)"></countdown-timer>
     <hr/>
     <h2>Flip Countdown Timer</h2>
-    <countdown-flip-timer #flipTimer
+    <countdown-flip-timer #countdownFlipTimer
       [countdownModel]="countdownFlipTimeStr" 
       (countdownOnElapse)="onElapse($event)"
-      (countdownOnRender)="flipTimer.render($event)"></countdown-flip-timer>  
+      (countdownOnRender)="countdownFlipTimer.render($event)"></countdown-flip-timer>  
   `
 })
 export class AppComponent {
@@ -25,5 +25,9 @@ export class AppComponent {
 
   onElapse(): void {
     alert('Countdown is finished!');
+  }
+
+  onChange(value: any) {
+    console.log(value);
   }
 }

@@ -89,7 +89,8 @@ var CountdownModelDirective = (function () {
     ], CountdownModelDirective.prototype, "onElapse", void 0);
     CountdownModelDirective = __decorate([
         core_1.Directive({
-            selector: '[countdownModel]'
+            selector: '[countdownModel]',
+            exportAs: 'countdownModel'
         }), 
         __metadata('design:paramtypes', [countdown_service_1.CountdownService])
     ], CountdownModelDirective);

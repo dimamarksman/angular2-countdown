@@ -17,11 +17,14 @@ var AppComponent = (function () {
     AppComponent.prototype.onElapse = function () {
         alert('Countdown is finished!');
     };
+    AppComponent.prototype.onChange = function (value) {
+        console.log(value);
+    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
-            template: "\n    <h1>Angular 2 Countdown Timer Example</h1>\n    <hr/>\n    <h2>Simple Countdown Timer</h2>\n    <countdown-timer #timer\n      [countdownModel]=\"countdownTimeStr\" \n      (countdownOnElapse)=\"onElapse($event)\"\n      (countdownOnRender)=\"timer.render($event)\"></countdown-timer>\n    <hr/>\n    <h2>Flip Countdown Timer</h2>\n    <countdown-flip-timer #flipTimer\n      [countdownModel]=\"countdownFlipTimeStr\" \n      (countdownOnElapse)=\"onElapse($event)\"\n      (countdownOnRender)=\"flipTimer.render($event)\"></countdown-flip-timer>  \n  "
+            template: "\n    <h1>Angular 2 Countdown Timer Example</h1>\n    <hr/>\n    <h2>Simple Countdown Timer</h2>\n    <countdown-timer #countdownTimer\n      [countdownModel]=\"countdownTimeStr\" \n      (countdownOnElapse)=\"onElapse($event)\"\n      (countdownOnRender)=\"countdownTimer.render($event)\"></countdown-timer>\n    <hr/>\n    <h2>Flip Countdown Timer</h2>\n    <countdown-flip-timer #countdownFlipTimer\n      [countdownModel]=\"countdownFlipTimeStr\" \n      (countdownOnElapse)=\"onElapse($event)\"\n      (countdownOnRender)=\"countdownFlipTimer.render($event)\"></countdown-flip-timer>  \n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

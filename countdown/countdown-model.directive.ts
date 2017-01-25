@@ -6,7 +6,8 @@ import { CountdownEvent } from './countdown-event';
 import { CountdownService } from './countdown.service';
 
 @Directive({
-  selector: '[countdownModel]'
+  selector: '[countdownModel]',
+  exportAs: 'countdownModel'
 })
 export class CountdownModelDirective implements OnDestroy {
   private timeRange: number;
