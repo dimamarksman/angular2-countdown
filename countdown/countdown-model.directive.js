@@ -13,13 +13,13 @@ var countdown_service_1 = require('./countdown.service');
 var CountdownModelDirective = (function () {
     function CountdownModelDirective(countdownService) {
         this.countdownService = countdownService;
-        this.onChanageCountdownId = new core_1.EventEmitter();
+        this.onChangeCountdownId = new core_1.EventEmitter();
         this.onRender = new core_1.EventEmitter();
         this.onElapse = new core_1.EventEmitter();
         this.id = Math.random().toString().slice(2);
         this.timeRangeObj = this.countdownService.getTimeRangeAsObject(0);
         // Expose model's id to parent component
-        this.onChanageCountdownId.emit(this.id);
+        this.onChangeCountdownId.emit(this.id);
         // Register model in countdownService
         this.countdownService.registerCountdownModel(this.id, this);
     }
@@ -78,7 +78,7 @@ var CountdownModelDirective = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], CountdownModelDirective.prototype, "onChanageCountdownId", void 0);
+    ], CountdownModelDirective.prototype, "onChangeCountdownId", void 0);
     __decorate([
         core_1.Output('countdownOnRender'), 
         __metadata('design:type', Object)

@@ -109,7 +109,7 @@ var CountdownService = (function () {
         return this.countdownModelMap.set(modelId, model);
     };
     CountdownService.prototype.unregisterCountdownModel = function (modelId) {
-        return delete this.countdownModelMap.delete(modelId);
+        return this.countdownModelMap.delete(modelId);
     };
     CountdownService.prototype.getCurrentTimeRangeByModelId = function (modelId) {
         var model = this.countdownModelMap.get(modelId);

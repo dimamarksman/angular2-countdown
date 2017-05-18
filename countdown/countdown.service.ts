@@ -135,7 +135,7 @@ export class CountdownService {
   }
 
   unregisterCountdownModel(modelId: string) {
-    return delete this.countdownModelMap.delete(modelId);
+    return this.countdownModelMap.delete(modelId);
   }
 
   getCurrentTimeRangeByModelId(modelId: string) {

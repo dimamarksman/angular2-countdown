@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { TimeRange } from '../time-range';
 import { Render } from '../countdown-render';

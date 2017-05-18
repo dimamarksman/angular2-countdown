@@ -35,7 +35,7 @@ export class CountdownModelDirective implements OnDestroy {
     }
   }
 
-  @Output() onChanageCountdownId = new EventEmitter<string>();
+  @Output() onChangeCountdownId = new EventEmitter<string>();
 
   @Output('countdownOnRender') onRender = new EventEmitter<{ timeRange: TimeRange, time: number }>();
 
@@ -46,7 +46,7 @@ export class CountdownModelDirective implements OnDestroy {
     this.timeRangeObj = this.countdownService.getTimeRangeAsObject(0);
 
     // Expose model's id to parent component
-    this.onChanageCountdownId.emit(this.id);
+    this.onChangeCountdownId.emit(this.id);
 
     // Register model in countdownService
     this.countdownService.registerCountdownModel(this.id, this);
